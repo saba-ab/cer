@@ -98,7 +98,6 @@ function checkResolution() {
 }
 window.addEventListener("resize", checkResolution);
 
-// submit message
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -109,20 +108,15 @@ function validatePhoneNumber(number) {
 }
 
 function submitForm(event) {
-  event.preventDefault(); // Prevent default form submission behavior
-
-  // Get form input values
+  event.preventDefault();
   const firstName = document.getElementById("firstName").value.trim();
   const lastName = document.getElementById("lastName").value.trim();
   const email = document.getElementById("email").value.trim();
   const number = document.getElementById("number").value.trim();
   const textMessage = document.getElementById("textMessage").value.trim();
   const errorElement = document.getElementById("error");
-
-  // Reset error message
   errorElement.textContent = "";
 
-  // Check if required fields are filled
   if (
     firstName === "" ||
     lastName === "" ||
@@ -131,32 +125,20 @@ function submitForm(event) {
     textMessage === ""
   ) {
     errorElement.textContent = "შეავსეთ ყველა ველი";
-    return; // Return early to prevent form submission
+    return;
   }
-
-  // Validate email format
   if (!validateEmail(email)) {
     errorElement.textContent = "შეიყვანეთ მეილის სწორი ფორმატი";
-    return; // Return early to prevent form submission
+    return;
   }
-
-  // Validate phone number format
   if (!validatePhoneNumber(number)) {
     errorElement.textContent =
       "ტელეფონის ნომერი უნდა იწყებოდეს +995-ით და შედგებოდეს 13 ციფრისგან";
-    return; // Return early to prevent form submission
+    return;
   }
-
-  // If all validations pass, you can proceed with form submission here
-  // For example, you can use AJAX to send form data to the server
-  // Replace the following line with your actual form submission code
-  // sendFormDataToServer(firstName, lastName, email, number, textMessage);
-
-  // For this example, we'll just display a success message
   errorElement.textContent = "ფორმა წარმატებით გაგზავნილია!";
 }
 
-// Attach the form submission handler to the form element
 document.getElementById("messageForm").addEventListener("submit", submitForm);
 
 const url = `https://api.brandfetch.io/v2/brands/`;
